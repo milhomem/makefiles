@@ -1,3 +1,5 @@
+.PHONY : php-lint
+
 COMPOSER ?= $(shell command -v composer 2> /dev/null || echo composer)
 COMPOSER_HOME ?= $(HOME)/.composer
 COMPOSER_ARGS ?= --no-scripts

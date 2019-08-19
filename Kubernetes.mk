@@ -1,3 +1,5 @@
+.PHONY : k8s-minikube-volume k8s-registry
+
 KUBECTL ?= $(shell command -v kubectl 2> /dev/null || echo kubectl)
 VBOX_MANAGE ?= $(shell command -v VBoxManage 2> /dev/null || echo VBoxManage)
 

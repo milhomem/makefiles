@@ -1,3 +1,5 @@
+.PHONY : docker-build docker-build-push
+
 DOCKER ?= $(shell command -v docker 2> /dev/null || echo docker)
 
 docker-build: build/Dockerfile
