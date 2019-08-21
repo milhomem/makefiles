@@ -12,3 +12,6 @@ endif
 docker-build-push:
 	$(DOCKER) push $(DOCKER_IMAGE):$(DOCKER_BUILD_TAG)
 	$(DOCKER) push $(DOCKER_IMAGE):latest
+
+newfreshrelease:
+	echo 2
