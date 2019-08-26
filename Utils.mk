@@ -10,7 +10,7 @@ envfile: .env.dist
 ifeq ("$(wildcard .env)","")
 	cp $^ .env
 endif
-	@env -i bash -c 'set -a; source .env.dist; source .env; env -u PWD -u SHLVL -u _ | awk -F = '{printf "%s=\"%s\"\n", $$1, ENVIRON[$$1]} > .env'
+	@env -i bash -c 'set -a; source .env.dist; source .env; env -u PWD -u SHLVL -u _ | awk -F = '\''{printf "%s=\"%s\"\n", $$1, ENVIRON[$$1]}'\'' > .env'
 
 env-to-envfile: .env.dist
 ifneq ("$(wildcard .env)","")
