@@ -4,7 +4,7 @@ help: ## This help dialog.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2 | "sort -u"}' $(MAKEFILE_LIST)
 
 map = $(foreach a,$(2),$(call $(1),$(a)))
-random-string = $(shell cat /dev/urandom | LC_CTYPE=C tr -dc 'a-z0-9' | fold -w $(1) | head -n 1)
+random_string = $(shell cat /dev/urandom | LC_CTYPE=C tr -dc 'a-z0-9' | fold -w $(1) | head -n 1)
 
 envfile: .env.dist
 ifeq ("$(wildcard .env)","")
