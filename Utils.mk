@@ -17,3 +17,5 @@ ifneq ("$(wildcard .env)","")
 	$(error File .env already exists!)
 endif
 	@env -i bash -c 'set -a; source .env.dist; env -u PWD -u SHLVL -u _' | awk -F = '$$1 in ENVIRON {printf "%s=\"%s\"\n", $$1, ENVIRON[$$1]}' > .env
+
+git_add_remote = git remote set-url $1 $2 || git remote add --fetch $1 $2
