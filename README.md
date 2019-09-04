@@ -42,22 +42,22 @@ include makefiles/*.mk
 
 #### Feature list:
 
-Name | Purpose
----- | -------
-help | Auto generates a help menu from comments
-envfile | Creates a combined `.env` file from a `.env.dist` file and the current `.env` file
-env-to-envfile | Dumps the environment variables to a `.env` file scoped to the `.env.dist` variables
-docker-build | Builds a `Dockerfile` and tag it using the `docker` binary
-docker-build-push | Pushes a recently build to a remote registry using the `docker` binary
-k8s-minikube-volume | Mounts a local volume inside `minikube`
-k8s-up | Applies a kubernetes folder of file using `kubectl` 
-k8s-down | Deletes kubernetes resources from specifications using `kubectl`
-k8s_minikube_open_service() | Opens a given service name on your browser using `minikube`
-k8s_jump() | Forward a given port from a given service using `kubectl`
-k8s_exec() | Execute a _command_ using `kubectl` on a running container
-k8s-registry | Create a new private registry entry using `kubectl` 
-vendor | Uses `composer` to create the dependencies folder called `vendor` 
-php-lint | Uses `phpcs` as a `vendor` dependency to lint based on `phpcs.xml` specs
+Name | Type | Purpose
+---- | ---- |-------
+help | Phony | Auto generates a help menu from comments
+.env | File Recipe | Creates a combined `.env` file from a `.env.dist` file and the current `.env` file
+env-to-envfile | Phony | Dumps the environment variables to a `.env` file scoped to the `.env.dist` variables
+docker-build | Phony | Builds a `Dockerfile` and tag it using the `docker` binary
+docker-build-push | Phony | Pushes a recently build to a remote registry using the `docker` binary
+k8s-minikube-volume | Phony | Mounts a local volume inside `minikube`
+k8s-up | Phony | Applies a kubernetes folder of file using `kubectl` 
+k8s-down | Phony | Deletes kubernetes resources from specifications using `kubectl`
+k8s_minikube_open_service() | Function | Opens a given service name on your browser using `minikube`
+k8s_jump() | Function | Forward a given port from a given service using `kubectl`
+k8s_exec() | Function | Execute a _command_ using `kubectl` on a running container
+k8s-registry | Phony | Create a new private registry entry using `kubectl` 
+vendor | Folder Recipe | Uses `composer` to create the dependencies folder called `vendor` 
+php-lint | Phony | Uses `phpcs` as a `vendor` dependency to lint based on `phpcs.xml` specs
 
 #### Utils
 
@@ -79,7 +79,7 @@ install                        This text will be added to the help section of th
 `envfile` recipe:
 
 ```bash
-make envfile
+make .env
 ```
 
 Creates a combined `.env` file based on a dist file. It's useful to keep the distributed values
@@ -95,7 +95,7 @@ $ cat .env.dist
 VALUE='TO NOT BE MERGED'
 MERGED='FROM DISTRIBUTED'
 
-$ make envfile
+$ make .env
 
 $ cat .env
 MERGED=FROM DISTRIBUTED

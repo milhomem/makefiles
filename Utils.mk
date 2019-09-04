@@ -6,7 +6,7 @@ help: ## This help dialog.
 map = $(foreach a,$(2),$(call $(1),$(a)))
 random_string = $(shell cat /dev/urandom | LC_CTYPE=C tr -dc 'a-z0-9' | fold -w $(1) | head -n 1)
 
-envfile: .env.dist
+.env: .env.dist
 ifeq ("$(wildcard .env)","")
 	cp $^ .env
 endif

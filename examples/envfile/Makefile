@@ -1,5 +1,7 @@
 #!/usr/bin/make
 include ../../*.mk
 
-install: envfile
+-include .env
+
+install:
 	@echo cat .env
