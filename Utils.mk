@@ -39,12 +39,13 @@ envfile_to_env = while IFS='=' read -r key temp || [ -n "$$key" ]; \
 
 swap_file = $(1).swp && mv $(1){.swp,}
 
-env-to-envfile : SHELL := env bash
+.ENVIRON := $(shell export -p | sed -e ':a' -e 'N' -e '$$!ba' -e 's/\n/; /g')
+env-to-envfile : SHELL := env -i bash
+env-to-envfile : .SHELLFLAGS := +o allexport -c
 env-to-envfile: .env.dist ## Dumps the environment variables to a `.env` file scoped to the `.env.dist` variables and its defaults
-ifneq ("$(wildcard .env)","")
-	$(error File .env already exists!)
-endif
-	@$(call envfile_to_env, .env.dist); env -u PWD -u SHLVL -u _ | awk -F = '$$1 in ENVIRON {printf "%s=\"%s\"\n", $$1, ENVIRON[$$1]}' > .env
+	@$(.ENVIRON); \
+	[[ -f .env ]] || cp $^ .env; \
+	awk -F = '($$1 in ENVIRON) {printf "%s=\"%s\"\n", $$1, ENVIRON[$$1]} !($$1 in ENVIRON) {print}' .env > $(call swap_file,.env)
 
 # Shell that exports .env vars to all recipe commands
 DOTENV_SHELL := BASH_ENV=.env env bash -o allexport
