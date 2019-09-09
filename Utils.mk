@@ -9,8 +9,7 @@ random_string = $(shell cat /dev/urandom | LC_CTYPE=C tr -dc 'a-z0-9' | fold -w 
 
 # Reduces the amount of variables exported to the environment
 .env : SHELL := env -i bash
-.env : .SHELLFLAGS := -o allexport -ec
-
+.env : .SHELLFLAGS := +o allexport -c
 .env: .env.dist
 #.env: Pesudocode
 # Checks and copy distribution in the first time
