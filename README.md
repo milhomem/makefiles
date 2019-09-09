@@ -31,13 +31,14 @@ Creare your make file and include all utilities from this project and start usin
 ```makefile
 #!/usr/bin/make
 
+.DEFAULT_GOAL := help
 SHELL := /bin/bash
 
-default-recipe: envfile ## Build this project using docker; Updates your defined .env variables
-
--include .env
 include makefiles/*.mk
+-include .env
 
+test : SHELL := $(DOTENV_SHELL)
+test:
 ...
 ```
 
@@ -49,7 +50,7 @@ Name | Type | Purpose
 ---- | ---- |-------
 help | Phony | Auto generates a help menu from comments
 .env | File Recipe | Creates a combined `.env` file from a `.env.dist` file and the current `.env` file
-env-to-envfile | Phony | Dumps the environment variables to a `.env` file scoped to the `.env.dist` variables
+env-to-envfile | Phony | Dumps the environment variables to a `.env` file scoped to the `.env.dist` variables and its defaults
 docker-build | Phony | Builds a `Dockerfile` and tag it using the `docker` binary
 docker-build-push | Phony | Pushes a recently build to a remote registry using the `docker` binary
 docker_run | Function | Runs a command inside a docker image
