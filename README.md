@@ -1,9 +1,12 @@
 # Makefiles utilities
-Make utilities to be reused by Makefiles.
+__Make__ recipes, functions, and variables to be reused by Makefiles __with environment variables__.
 
 ### Goal
 
-Create reusable Makefiles that can easily adapt using environment variables or function parameters.
+- Create reusable Makefiles that can easily adapt using environment variables or function parameters.
+
+- Secondary goal
+  -  Create an archive of Makefile tips and tricks by example that can be replicated.
 
 ### Using the files
 
@@ -49,6 +52,7 @@ help | Phony | Auto generates a help menu from comments
 env-to-envfile | Phony | Dumps the environment variables to a `.env` file scoped to the `.env.dist` variables
 docker-build | Phony | Builds a `Dockerfile` and tag it using the `docker` binary
 docker-build-push | Phony | Pushes a recently build to a remote registry using the `docker` binary
+docker_run | Function | Runs a command inside a docker image
 k8s-minikube-volume | Phony | Mounts a local volume inside `minikube`
 k8s-up | Phony | Applies a kubernetes folder of file using `kubectl` 
 k8s-down | Phony | Deletes kubernetes resources from specifications using `kubectl`
@@ -116,6 +120,24 @@ docker-build
 docker-build-push
 
 //TODO
+
+__`docker_run` function:__
+
+_positional parameters_: command, image, flags 
+
+Composes a Docker run command useful for once off tasks. 
+It will remove the container by default and run it interactively with tty.
+
+_Try to avoid using this function everywhere to avoid interdependency on Docker._ 
+
+E.g. [this file]() //TODO
+
+```makefile
+ssh:
+	$(call docker_run, bash, busybox, -v $$PWD:/app -it)
+```
+
+> __Attention__: the _-it_ flag is for commands that need to emulate a terminal
 
 #### Kubernetes
 

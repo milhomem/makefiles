@@ -13,3 +13,5 @@ endif
 docker-build-push:
 	$(DOCKER) push $(DOCKER_IMAGE):$(DOCKER_BUILD_TAG)
 	$(DOCKER) push $(DOCKER_IMAGE):latest
+
+docker_run = $(DOCKER) run --rm $3 $(strip $2) $(strip 1)
