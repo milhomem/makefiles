@@ -24,6 +24,16 @@ git add makefiles .gitmodules
 git commit
 ```
 
+### Dependencies
+
+You might face a few dependencies issues depending on the recipe you use. Mostly you can provide an alternative binary.
+
+- GNU `coreutils`
+- GNU `bash`
+- `docker`
+- `kubectl`, `VBoxManage`, `minikube`
+- `git`
+
 ### Usage
 
 Creare your make file and include all utilities from this project and start using it on your recipes.
