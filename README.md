@@ -51,6 +51,11 @@ Name | Type | Purpose
 help | Phony | Auto generates a help menu from comments
 .env | File Recipe | Creates a combined `.env` file from a `.env.dist` file and the current `.env` file
 env-to-envfile | Phony | Dumps the environment variables to a `.env` file scoped to the `.env.dist` variables and its defaults
+swap_file | Function | Shorthand for situations where yor are reading and writing to the same file
+map | Function | Taken from Make's manual, runs a function on every element of the list
+random_string | Function | Generates a fixed size alphanumeric string
+envfile_to_env | Function | Loads a dotenv file into the environment, better than `source`
+git_add_remote | Function | Adds a git remote ignoring errors when it already exists
 docker-build | Phony | Builds a `Dockerfile` and tag it using the `docker` binary
 docker-build-push | Phony | Pushes a recently build to a remote registry using the `docker` binary
 docker_run | Function | Runs a command inside a docker image
