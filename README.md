@@ -61,6 +61,7 @@ Name | Type | Purpose
 help | Phony | Auto generates a help menu from comments
 .env | File Recipe | Creates a combined `.env` file from a `.env.dist` file and the current `.env` file
 env-to-envfile | Phony | Dumps the environment variables to a `.env` file scoped to the `.env.dist` variables and its defaults
+envfile-to-inifile | Phony | Converts a envfile to a inifile i.e. Docker .env or Kustomize `configMapGenerator` envs.
 swap_file | Function | Shorthand for situations where yor are reading and writing to the same file
 map | Function | Taken from Make's manual, runs a function on every element of the list
 random_string | Function | Generates a fixed size alphanumeric string

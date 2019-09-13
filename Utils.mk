@@ -1,4 +1,4 @@
-.PHONY : env-to-envfile help
+.PHONY : env-to-envfile envfile-to-inifile help
 
 help: ## This help dialog.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2 | "sort -u"}' $(MAKEFILE_LIST)
@@ -29,13 +29,23 @@ endif
 	 env -u PWD -u SHLVL -u _ | join -v 2 -t = -j 1 <(sort .env) <(sort -) >> .env; \
 	 awk -F = '($$1 in ENVIRON) {printf "%s=\"%s\"\n", $$1, ENVIRON[$$1]} !($$1 in ENVIRON) {print}' .env > $(call swap_file,.env)
 
+hashtag := \#
 # Inspired by https://github.com/madcoda/dotenv-shell/blob/master/dotenv.sh
 # Removes quotes and export vars, does not fails when dist has no quotes
 envfile_to_env = while IFS='=' read -r key temp || [ -n "$$key" ]; \
 	do \
+		if [[ $$key == \$(hashtag)* ]]; then continue; fi; \
+		if [[ -z $$key ]]; then continue; fi; \
 		value=$$(eval echo "$$temp"); \
         eval export "$$key='$$value'"; \
-	done < $(1) > /dev/null
+	done < $(1)
+
+ENVFILE ?= .env
+INIFILE ?= env.ini
+envfile-to-inifile : SHELL := env -i bash
+envfile-to-inifile : .SHELLFLAGS := +o allexport -c
+envfile-to-inifile:
+	@$(call envfile_to_env, $(ENVFILE)); env -u PWD -u SHLVL -u _ > $(INIFILE)
 
 swap_file = $(1).swp && mv $(1){.swp,}
 
