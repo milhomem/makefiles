@@ -9,11 +9,13 @@ k8s-minikube-volume:
 	-$(VBOX_MANAGE) sharedfolder add minikube --name $(MINIKUBE_VOLUME_REF) --hostpath $(LOCAL_PATH) --transient
 	$(MINIKUBE) ssh -- sudo mount -t vboxsf $(MINIKUBE_VOLUME_REF) $(MINIKUBE_PATH)
 
-k8s-down: $(K8S-RESOURCES)
-	$(KUBECTL) delete -k $(K8S-RESOURCES)
+# Support variable renaming to drop the dash from it
+K8S_RESOURCES ?= $(K8S-RESOURCES)
+k8s-down: $(K8S_RESOURCES)
+	$(KUBECTL) delete -k $(K8S_RESOURCES)
 
-k8s-up: $(K8S-RESOURCES)
-	$(KUBECTL) apply -k $(K8S-RESOURCES)
+k8s-up: $(K8S_RESOURCES)
+	$(KUBECTL) apply -k $(K8S_RESOURCES)
 
 k8s_minikube_open_service = $(MINIKUBE) service $(1)
 
