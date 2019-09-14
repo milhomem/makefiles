@@ -31,7 +31,7 @@ You might face a few dependencies issues depending on the recipe you use. Mostly
 - GNU `coreutils`
 - GNU `bash`
 - `docker`
-- `kubectl`, `VBoxManage`, `minikube`
+- `kubectl`, `kustomize`, `VBoxManage`, `minikube`
 - `git`
 
 ### Usage
